@@ -238,7 +238,7 @@ A BIG THANKS FOR COMING INTO MY LIFE AND GIVING ME MEMORIES. NOW IT'S TIME TO SA
 </section>
 <script>
   const bgVideo = document.getElementById('bgVideo');
-  const totalPages = 6; // From 0 (cover) to 6
+  const totalPages = 6;
   function nextPage(pageNum) {
     for (let i = 0; i <= totalPages; i++) {
       const page = document.getElementById('page' + i);
@@ -312,12 +312,18 @@ A BIG THANKS FOR COMING INTO MY LIFE AND GIVING ME MEMORIES. NOW IT'S TIME TO SA
     ctx.clearRect(0,0,canvas.width,canvas.height);
     particles = [];
   }
-  window.addEventListener('resize',()=>{
+  window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   });
+  // Audio autoplay on user click workaround
+  document.body.addEventListener('click', function() {
+    const audio = document.getElementById('bgm');
+    if (audio.paused) audio.play();
+  }, { once: true });
   nextPage(0);
   animateConfetti();
 </script>
 </body>
 </html>
+
