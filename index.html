@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>🎉HINA BIRTHDAY🎉</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4B2245;
+    overflow-x: hidden;
+    text-align: center;
+    background: linear-gradient(135deg, #fceef3, #fadadd);
+  }
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background 0.5s ease;
+  }
+  #page1 h1,
+  #page1 p {
+    color: #fff;
+    text-shadow: 2px 2px 8px #0008, 0 2px 16px #0006;
+  }
+  .hidden {
+    display: none;
+  }
+  h1, h2 {
+    margin-bottom: 0.3em;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px #fcb8d3;
+  }
+  p {
+    font-size: 1.4em;
+    max-width: 600px;
+    line-height: 1.5;
+    margin: 0.5em auto 1em;
+    font-style: italic;
+    color: #7a3b65;
+    text-shadow: 1px 1px 1px #f2c2d7;
+  }
+  button {
+    font-size: 1.3em;
+    padding: 0.7em 2.2em;
+    border-radius: 2em;
+    border: none;
+    margin: 1.2em 0.5em 0 0.5em;
+    background: linear-gradient(90deg, #f5576c 30%, #c44060 100%);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px #c24b70cc;
+    transition: background 0.3s;
+    z-index: 5;
+    position: relative;
+  }
+  button:hover {
+    background: linear-gradient(90deg, #ffa4c4 30%, #ff6d9d 100%);
+  }
+  img.greeting-img {
+    max-width: 350px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px #f8a1c622;
+    margin: 1em 0;
+    animation: fadeInEase 1.3s ease forwards;
+    position: relative;
+    z-index: 5;
+  }
+  img.cover-img {
+    max-width: 400px;
+    width: 95%;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px #dab7de;
+    margin-bottom: 1em;
+    animation: fadeInEase 1.3s ease forwards;
+    position: relative;
+    z-index: 11;
+  }
+  @keyframes fadeInEase {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+  /* Floating hearts decoration as full hearts */
+  .heart {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-color: #f75a8e;
+    transform: rotate(-45deg);
+    animation: floatUpLinear 8s linear infinite;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #f75a8e;
+    border-radius: 50%;
+  }
+  .heart::before {
+    top: 0;
+    left: 10px;
+  }
+  .heart::after {
+    top: -10px;
+    left: 0;
+  }  
+  .heart:nth-child(1) { left: 15%; animation-delay: 0s; }
+  .heart:nth-child(2) { left: 40%; animation-delay: 2s; }
+  .heart:nth-child(3) { left: 75%; animation-delay: 4s; }
+  .heart:nth-child(4) { left: 60%; animation-delay: 6s; }
+  @keyframes floatUpLinear {
+    0% {transform: translateY(100vh) scale(1) rotate(-45deg);}
+    100% {transform: translateY(-10vh) scale(1.3) rotate(-45deg);}
+  }
+  /* Background video styles */
+  #bgVideo {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.25;
+    pointer-events: none;
+    display: none;
+  }
+  /* Goodbye page styling */
+  #page6 {
+    background-color: #2c1a29;
+    color: #f8e1ef;
+  }
+  #page6 p {
+    font-size: 1.5em;
+    font-style: italic;
+    max-width: 600px;
+    margin: auto;
+  }
+  /* Canvas for confetti */
+  #confetti {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts for romantic decoration -->
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+
+<!-- Confetti and Hearts Canvas -->
+<canvas id="confetti"></canvas>
+
+<!-- Background Video -->
+<video id="bgVideo" autoplay loop muted playsinline>
+  <source src="hina.mp4" type="video/mp4" />
+</video>
+
+<!-- Page 0: Cover Page -->
+<section id="page0" class="container" style="background: #fff;">
+  <img src="9.jpg" alt="Birthday Cover" class="cover-img" />
+  <button onclick="nextPage(1)" style="margin-top:2em;"> ❤️❤️❤️</button>
+</section>
+
+<!-- Page 1: Birthday Greeting 1 -->
+<section id="page1" class="container hidden" style="background-image: url('3.jpg');">
+  <h1>Happy Birthday, Hina! 🎉</h1>
+  <img src="4.jpg" alt="Hina smiling" class="greeting-img" />
+  <p>
+    Happy Birthday to my favorite person—someone I have never met in person,
+    yet feel a special connection with deep in my heart.
+    There is a beautiful mystery in us waiting to be discovered,
+    and on your special day, I wish for us to explore this bond,
+    to find the joy and magic that only we can share together.
+    <br/><br/>
+    May your birthday be filled with gentle smiles, quiet hopes,
+    and the promise of new beginnings in the journey we may take side by side.
+    You are cherished beyond distance, held dearly in my thoughts today and always.
+  </p>
+  <button onclick="nextPage(2)">❤️❤️❤️</button>
+</section>
+
+<!-- Page 2 -->
+<section id="page2" class="container hidden">
+  <h2>For My Favorite Person</h2>
+  <img src="2.jpg" alt="Hina with flowers" class="greeting-img" />
+  <p>
+    Though distance separates us, your kindness lights up every darkened space,
+Your warmth and gentle spirit reach me from across the miles, leaving a lasting trace.
+With every shared moment and memory, you bring comfort and cheer,
+Your smile is a beacon of hope, ever bright and sincere.
+No matter how far apart, your friendship is a treasure I hold near.
+  </p>
+  <button onclick="nextPage(3)">❤️❤️❤️</button>
+</section>
+
+<!-- Page 3 -->
+<section id="page3" class="container hidden">
+  <h2>"Perfect. Loved. Forever."</h2>
+  <img src="1.jpg" alt="Hina in garden" class="greeting-img" />
+  <p>
+If perfection had a face, it would be yours—flawless in every smile, every glance.
+If love had a name, it would be the feeling that grows in my heart for you every day.
+You are the light that brightens my darkest hours and the calm that soothes my restless soul.
+Your beauty, both inside and out, is a rare treasure that inspires me endlessly.
+With you, love is not just a word but a living, breathing dream coming true
+  </p>
+  <button onclick="nextPage(4)">❤️❤️❤️</button>
+</section>
+
+<!-- Page 4 -->
+<section id="page4" class="container hidden">
+  <h2>A Wish for a Beautiful Soul</h2>
+  <img src="5.jpg" alt="Calm nature" class="greeting-img" />
+  <p>
+    May your days be filled with sunshine and your nights with peaceful dreams.<br/>
+    You deserve all the happiness and love that life can offer.<br/>
+    Keep shining with your gentle spirit and warm heart.
+  </p>
+  <button onclick="nextPage(5)">❤️❤️❤️</button>
+</section>
+
+<!-- Page 5 -->
+<section id="page5" class="container hidden">
+  <h2>Forever Cherished</h2>
+  <img src="6.jpg" alt="Beautiful sunset" class="greeting-img" />
+  <p>
+    May every birthday remind you how deeply you are loved and treasured.<br/>
+    Here’s to many more wonderful years filled with laughter and joy.<br/>
+    Happy Birthday Dear Hina, always and forever.
+  </p>
+  <button onclick="nextPage(6)">❤️❤️❤️</button>
+</section>
+
+<!-- Page 6: Goodbye -->
+<section id="page6" class="container hidden">
+  <p>
+A BIG THANKS FOR COMING INTO MY LIFE AND GIVING ME MEMORIES. NOW IT'S TIME TO SAY GOODBYE FOREVER. I HOPE YOU WILL BE HAPPY AS ALWAYS. THANK YOU HINA 😊
+  </p>
+</section>
+
+<script>
+  const bgVideo = document.getElementById('bgVideo');
+  const totalPages = 6; // From 0 (cover) to 6
+
+  function nextPage(pageNum) {
+    for (let i = 0; i <= totalPages; i++) {
+      const page = document.getElementById('page' + i);
+      if (page) page.classList.add('hidden');
+    }
+    document.getElementById('page' + pageNum).classList.remove('hidden');
+    if (pageNum === 1 || pageNum === 0) {
+      bgVideo.style.display = 'none';
+    } else {
+      bgVideo.style.display = 'block';
+    }
+    // Stop confetti when leaving cover
+    if (pageNum !== 0) {
+      stopConfetti();
+    }
+  }
+
+  // ---- Confetti and Heart Animation ----
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  function createParticle() {
+    const shapes = ['circle', 'rectangle', 'heart'];
+    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+    return {
+      x: Math.random() * canvas.width,
+      y: -20,
+      size: 10 + Math.random() * 16,
+      speed: 1 + Math.random() * 2,
+      color: ['#ff6f91', '#f7f48b', '#6fffb0', '#8bc6ff', '#fcb9b2', '#ae7bff', '#f97b7b'][Math.floor(Math.random() * 7)],
+      shape: shape,
+      angle: Math.random() * Math.PI * 2,
+      rotateSpeed: 0.01 + Math.random() * 0.03
+    };
+  }
+  function drawParticle(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.angle);
+    ctx.fillStyle = p.color;
+    if (p.shape === 'circle') {
+      ctx.beginPath();
+      ctx.arc(0,0,p.size,0,2*Math.PI);
+      ctx.fill();
+    } else if (p.shape === 'rectangle') {
+      ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.7);
+    } else if (p.shape === 'heart') {
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.bezierCurveTo(-p.size/2,-p.size/2, -p.size,p.size/3, 0,p.size);
+      ctx.bezierCurveTo(p.size,p.size/3, p.size/2,-p.size/2,0,0);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  function animateConfetti() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if (document.getElementById('page0') && !document.getElementById('page0').classList.contains('hidden')) {
+      if (particles.length < 120) {
+        particles.push(createParticle());
+      }
+      particles.forEach((p, i) => {
+        p.y += p.speed;
+        p.angle += p.rotateSpeed;
+        drawParticle(p);
+        if (p.y > canvas.height + 40) particles.splice(i,1);
+      });
+      requestAnimationFrame(animateConfetti);
+    }
+  }
+  function stopConfetti() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles = [];
+  }
+  window.addEventListener('resize',()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Start at cover page and confetti
+  nextPage(0);
+  animateConfetti();
+</script>
+</body>
+</html>
